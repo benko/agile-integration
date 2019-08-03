@@ -1,5 +1,5 @@
-OCP Cluster Set-Up
-==================
+OCP Cluster Set-Up Procedure
+============================
 
 After having deployed the cluster using Terraform, the following changes were
 performed.
@@ -12,15 +12,15 @@ Deployment of the SSO itself:
     $ oc new-project sso-internal
     ...
     $ oc new-app sso73-x509-postgresql-persistent \
-        -p APPLICATION_NAME=provider \
-        -p SSO_HOSTNAME=sso-internal.apps.agile.ocp.aws.p0f.net \
-        -p DB_DATABASE=sso \
-        -p SSO_ADMIN_USERNAME=ssoadmin \
-        -p SSO_ADMIN_PASSWORD="XXXXXXXXXXXXXXXXXX" \
-        -p SSO_REALM=ocp-agile \
-        -p SSO_SERVICE_USERNAME=ssoclient \
-        -p SSO_SERVICE_PASSWORD="XXXXXXXXXXXXXXXXXX" \
-        --name=provider
+            -p APPLICATION_NAME=provider \
+            -p SSO_HOSTNAME=sso-internal.apps.agile.ocp.aws.p0f.net \
+            -p DB_DATABASE=sso \
+            -p SSO_ADMIN_USERNAME=ssoadmin \
+            -p SSO_ADMIN_PASSWORD="XXXXXXXXXXXXXXXXXX" \
+            -p SSO_REALM=ocp-agile \
+            -p SSO_SERVICE_USERNAME=ssoclient \
+            -p SSO_SERVICE_PASSWORD="XXXXXXXXXXXXXXXXXX" \
+            --name=provider
 
     $ oc get -o yaml route provider > route.yml
     [fix the route]

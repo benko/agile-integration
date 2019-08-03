@@ -4,27 +4,39 @@ Red Hat 3scale API Gateway Set-Up Procedure
 Required Resources
 ------------------
 
-For the deployment of 3scale on OCP, we need the S3 3scale AMP Template for OpenShift, available from the [templates section of the 3scale GitHub repository](https://github.com/3scale/3scale-amp-openshift-templates).
+For the deployment of 3scale on OCP, we need the S3 3scale AMP Template for
+OpenShift, available from the
+[templates section of the 3scale GitHub repository](https://github.com/3scale/3scale-amp-openshift-templates).
 
-More information on how to deploy and configure 3scale is available from [Red Hat 3scale Installation Guide](https://access.redhat.com/documentation/en-us/red_hat_3scale_api_management/2.5/html-single/installing_3scale/index).
+More information on how to deploy and configure 3scale is available from
+[Red Hat 3scale Installation Guide](https://access.redhat.com/documentation/en-us/red_hat_3scale_api_management/2.5/html-single/installing_3scale/index).
 
-Setting Up The Project
-----------------------
+Deploying the API Gateway
+-------------------------
+
+First, obviously, a project needs to be created:
+
+    $ oc new-project 3scale
 
 We'll be using the GitHub repository:
 
-    $ export GIT_URL=https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master
+    $ export API_GIT_URL=https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master
 
-Create the template. We need the S3 template.
+Create the template. We need the S3 template on AWS.
 
-    $ oc create -f ${GIT_URL}/amp/amp-s3.yml
+    $ oc create -f ${API_GIT_URL}/amp/amp-s3.yml
 
-This is going to be long. Hahaha, not!
+***NOTE***: Technically, we could skip the above step and simply use the
+``--file`` option to ``oc new-app``, pointing it at the above repository URL.
+
+The creation of the deployment is then very simple:
 
     $ oc new-app --name=api-gw \
             --template=3scale-api-management-s3 \
             -p WILDCARD_DOMAIN=api.apps.agile.ocp.aws.p0f.net \
             -p WILDCARD_POLICY=Subdomain
+
+It takes a couple of minutes for all the components to deploy.
 
 Post-Install Configuration
 --------------------------
