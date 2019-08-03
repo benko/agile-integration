@@ -4,8 +4,8 @@ OCP Cluster Set-Up
 After having deployed the cluster using Terraform, the following changes were
 performed.
 
-Red Hat SSO
------------
+Deploying Red Hat SSO
+---------------------
 
 Deployment of the SSO itself:
 
@@ -50,7 +50,40 @@ Configuration of the SSO provider is at:
 
     https://sso-internal.apps.agile.ocp.aws.p0f.net/auth/admin
 
-Follow the steps in [Red Hat SSO for OpenShift documentation](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.3/html/red_hat_single_sign-on_for_openshift/), [Chapter 5: Configuring OpenShift to use Red Hat Single Sign-On for Authentication](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.3/html/red_hat_single_sign-on_for_openshift/tutorials#OSE-SSO-AUTH-TUTE).
+More details are available in [Red Hat SSO for OpenShift documentation](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.3/html/red_hat_single_sign-on_for_openshift/).
+
+Configuring SSO Client for OpenShift
+------------------------------------
+
+Creating a new client for OpenShift consists of:
+
+    Realm: Ocp-agile
+	-> Clients
+	[Create]
+
+    Client ID: agile-ocp
+    Client Protocol: openid-connect
+    [Save]
+
+In the subsequent client configuration, make sure the following settings apply:
+
+    Enabled: ON
+    Access Type: confidential
+    Standard Flow Enabled: ON
+    Implicit Flow Enabled: OFF
+    Direct Access Grants Enabled: OFF
+    Service Accounts Enabled: FF
+    Authorization Enabled: OFF
+    Valid Redirect URIs:
+	https://api.agile.ocp.aws.p0f.net:6443/*
+	https://console-openshift-console.apps.agile.ocp.aws.p0f.net/*
+	https://oauth-openshift.apps.agile.ocp.aws.p0f.net/*
+    Advanced Settings:
+	Access Token Lifespan: 1 Minutes
+
+Obtain a client secret from the ``Credentials`` tab.
+
+More details are available in [Chapter 5: Configuring OpenShift to use Red Hat Single Sign-On for Authentication](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.3/html/red_hat_single_sign-on_for_openshift/tutorials#OSE-SSO-AUTH-TUTE).
 
 Configuring OpenShift to use Internal SSO
 -----------------------------------------
@@ -130,5 +163,5 @@ Finally, the CR definition for SSO provider is as follows:
           issuer: https://sso-internal.apps.agile.ocp.aws.p0f.net/auth/realms/ocp-agile
         type: OpenID
 
-Follow the steps in the [Red Hat OpenShift Container Platform documentation](https://docs.openshift.com/container-platform/4.1/), specifically about [Configuring Identity Providers](https://docs.openshift.com/container-platform/4.1/authentication/identity_providers/) for more information.
+More details are available in [Red Hat OpenShift Container Platform documentation](https://docs.openshift.com/container-platform/4.1/), specifically about [Configuring Identity Providers](https://docs.openshift.com/container-platform/4.1/authentication/identity_providers/).
 
