@@ -29,6 +29,8 @@ This is going to be long. Hahaha, not!
 Post-Install Configuration
 --------------------------
 
+### Configuring Red Hat SSO for 3scale
+
 After deploying 3scale, we need to configure SSO integration.
 
 In the internal SSO, create a new client:
@@ -52,6 +54,7 @@ In the subsequent client configuration, make sure the following settings apply:
     Authorization Enabled: OFF
     Valid Redirect URIs:
 	https://3scale-admin.api.apps.agile.ocp.aws.p0f.net/*
+	https://3scale.api.apps.agile.ocp.aws.p0f.net/*		# only needed for developer portal
     Advanced Settings:
 	Access Token Lifespan: 1 Minutes
     [Save]
@@ -63,6 +66,33 @@ Change the service account roles in the ``Service Account Roles`` tab:
     [Add selected >>]
 
 Obtain the client secret from the ``Credentials`` tab.
+
+Configure the ``email_verified`` mapper in the ``Mappers`` tab.
+
+    [Add Builtin]
+	-> email verified: CHECK
+    [Add Selected]
+
+To automatically map Users to Organizations, create an ``org_name`` mapper in
+the ``Mappers`` tab:
+
+    [Create]
+	Name: org name
+	Mapper Type: User Attribute
+	User Attribute: org_name
+	Token Claim Name: org_name
+	Claim JSON Type: String
+	Add to ID token: ON
+	Add to access token: ON
+	Add to userinfo: ON
+	Multivalued: OFF
+	Aggregate attribute values: OFF
+    [Save]
+
+Now the ``org_name`` attribute could be used to automatically assign any user
+to an organization within 3scale (*if it worked*).
+
+### Configuring 3scale API Management for Red Hat SSO
 
 In the 3scale management console, configure the following:
 
@@ -76,6 +106,7 @@ In the 3scale management console, configure the following:
     Client Secret: c6...cc
     Realm or Site: https://sso-internal.apps.agile.ocp.aws.p0f.net/auth/realms/ocp-agile
     Do not verify SSL certificate: YES
+    [Save]
 
 After saving, test OAuth flow by clicking the ``Test authentication flow``
 link. Log in as some existing user.
@@ -85,4 +116,27 @@ If successful, make the SSO provider active by clicking ``Publish``.
 For accessing 3scale, users do not need any roles. However, to do anything
 useful, they have to be assigned at least one role **in the SSO admin
 console**.
+
+### Configuring 3scale Developer Portal for Red Hat SSO
+
+In the 3scale management console, configure the following:
+
+    Audience
+	-> Developer Portal
+	-> SSO Integrations
+	[Red Hat Single Sign-On]
+
+Fill in the settings:
+
+    Client: 3scale-sso
+    Client Secret: c6...cc
+    Realm or Site: https://sso-internal.apps.agile.ocp.aws.p0f.net/auth/realms/ocp-agile
+    Do not verify SSL certificate: YES
+    Published: YES
+    [Save]
+
+Testing the portal is possible at
+<https://3scale.api.apps.agile.ocp.aws.p0f.net/>, but only **after** the
+``Developer Portal Access Code`` had been removed from ``Audience -> Developer
+Portal -> Domains & Access``.
 
