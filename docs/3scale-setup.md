@@ -22,9 +22,9 @@ Create the template. We need the S3 template.
 This is going to be long. Hahaha, not!
 
     $ oc new-app --name=api-gw \
-	    --template=3scale-api-management-s3 \
-	    -p WILDCARD_DOMAIN=api.apps.agile.ocp.aws.p0f.net \
-	    -p WILDCARD_POLICY=Subdomain
+            --template=3scale-api-management-s3 \
+            -p WILDCARD_DOMAIN=api.apps.agile.ocp.aws.p0f.net \
+            -p WILDCARD_POLICY=Subdomain
 
 Post-Install Configuration
 --------------------------
@@ -36,8 +36,8 @@ After deploying 3scale, we need to configure SSO integration.
 In the internal SSO, create a new client:
 
     Realm: Ocp-agile
-	-> Clients
-	[Create]
+        -> Clients
+        [Create]
 
     Client ID: 3scale-sso
     Client Protocol: openid-connect
@@ -53,10 +53,10 @@ In the subsequent client configuration, make sure the following settings apply:
     Service Accounts Enabled: ON
     Authorization Enabled: OFF
     Valid Redirect URIs:
-	https://3scale-admin.api.apps.agile.ocp.aws.p0f.net/*
-	https://3scale.api.apps.agile.ocp.aws.p0f.net/*		# only needed for developer portal
+        https://3scale-admin.api.apps.agile.ocp.aws.p0f.net/*
+        https://3scale.api.apps.agile.ocp.aws.p0f.net/*         # only needed for developer portal
     Advanced Settings:
-	Access Token Lifespan: 1 Minutes
+        Access Token Lifespan: 1 Minutes
     [Save]
 
 Change the service account roles in the ``Service Account Roles`` tab:
@@ -70,23 +70,23 @@ Obtain the client secret from the ``Credentials`` tab.
 Configure the ``email_verified`` mapper in the ``Mappers`` tab.
 
     [Add Builtin]
-	-> email verified: CHECK
+        -> email verified: CHECK
     [Add Selected]
 
 To automatically map Users to Organizations, create an ``org_name`` mapper in
 the ``Mappers`` tab:
 
     [Create]
-	Name: org name
-	Mapper Type: User Attribute
-	User Attribute: org_name
-	Token Claim Name: org_name
-	Claim JSON Type: String
-	Add to ID token: ON
-	Add to access token: ON
-	Add to userinfo: ON
-	Multivalued: OFF
-	Aggregate attribute values: OFF
+        Name: org name
+        Mapper Type: User Attribute
+        User Attribute: org_name
+        Token Claim Name: org_name
+        Claim JSON Type: String
+        Add to ID token: ON
+        Add to access token: ON
+        Add to userinfo: ON
+        Multivalued: OFF
+        Aggregate attribute values: OFF
     [Save]
 
 Now the ``org_name`` attribute could be used to automatically assign any user
@@ -97,9 +97,9 @@ to an organization within 3scale (*if it worked*).
 In the 3scale management console, configure the following:
 
     Account Settings
-	-> Users
-	-> SSO Integrations
-	[New SSO Integration]
+        -> Users
+        -> SSO Integrations
+        [New SSO Integration]
 
     SSO Provider: Red Hat Single Sign-On
     Client: 3scale-sso
@@ -122,9 +122,9 @@ console**.
 In the 3scale management console, configure the following:
 
     Audience
-	-> Developer Portal
-	-> SSO Integrations
-	[Red Hat Single Sign-On]
+        -> Developer Portal
+        -> SSO Integrations
+        [Red Hat Single Sign-On]
 
 Fill in the settings:
 

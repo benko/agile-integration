@@ -13,14 +13,14 @@ Deployment of the SSO itself:
     ...
     $ oc new-app sso73-x509-postgresql-persistent \
         -p APPLICATION_NAME=provider \
-	-p SSO_HOSTNAME=sso-internal.apps.agile.ocp.aws.p0f.net \
-	-p DB_DATABASE=sso \
-	-p SSO_ADMIN_USERNAME=ssoadmin \
-	-p SSO_ADMIN_PASSWORD="XXXXXXXXXXXXXXXXXX" \
-	-p SSO_REALM=ocp-agile \
-	-p SSO_SERVICE_USERNAME=ssoclient \
-	-p SSO_SERVICE_PASSWORD="XXXXXXXXXXXXXXXXXX" \
-	--name=provider
+        -p SSO_HOSTNAME=sso-internal.apps.agile.ocp.aws.p0f.net \
+        -p DB_DATABASE=sso \
+        -p SSO_ADMIN_USERNAME=ssoadmin \
+        -p SSO_ADMIN_PASSWORD="XXXXXXXXXXXXXXXXXX" \
+        -p SSO_REALM=ocp-agile \
+        -p SSO_SERVICE_USERNAME=ssoclient \
+        -p SSO_SERVICE_PASSWORD="XXXXXXXXXXXXXXXXXX" \
+        --name=provider
 
     $ oc get -o yaml route provider > route.yml
     [fix the route]
@@ -46,9 +46,7 @@ Deployment of the SSO itself:
     $ oc replace route provider -f route.yml
     $ rm -f route.yml
 
-Configuration of the SSO provider is at:
-
-    https://sso-internal.apps.agile.ocp.aws.p0f.net/auth/admin
+Configuration of the SSO service is at <https://sso-internal.apps.agile.ocp.aws.p0f.net/auth/admin>.
 
 More details are available in [Red Hat SSO for OpenShift documentation](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.3/html/red_hat_single_sign-on_for_openshift/).
 
@@ -58,8 +56,8 @@ Configuring SSO Client for OpenShift
 Creating a new client for OpenShift consists of:
 
     Realm: Ocp-agile
-	-> Clients
-	[Create]
+        -> Clients
+        [Create]
 
     Client ID: agile-ocp
     Client Protocol: openid-connect
@@ -75,11 +73,11 @@ In the subsequent client configuration, make sure the following settings apply:
     Service Accounts Enabled: FF
     Authorization Enabled: OFF
     Valid Redirect URIs:
-	https://api.agile.ocp.aws.p0f.net:6443/*
-	https://console-openshift-console.apps.agile.ocp.aws.p0f.net/*
-	https://oauth-openshift.apps.agile.ocp.aws.p0f.net/*
+        https://api.agile.ocp.aws.p0f.net:6443/*
+        https://console-openshift-console.apps.agile.ocp.aws.p0f.net/*
+        https://oauth-openshift.apps.agile.ocp.aws.p0f.net/*
     Advanced Settings:
-	Access Token Lifespan: 1 Minutes
+        Access Token Lifespan: 1 Minutes
 
 Obtain a client secret from the ``Credentials`` tab.
 
