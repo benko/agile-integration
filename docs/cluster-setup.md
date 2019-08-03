@@ -110,8 +110,8 @@ The first two can be found in the `openshift-config` project:
         z3rKeKoCcLLprIoe++t2XB+/ExjAqnulLQEggby5MgzE
         -----END CERTIFICATE-----
 
-> *IMPORTANT*: The key in the above CM *must* be called ca.crt or it will
-> not be recognised by the OAuth machinery.
+***IMPORTANT***: The key in the above CM **must** be called ``ca.crt`` or it will
+not be recognised by the OAuth machinery.
 
     $ oc get -o yaml -n openshift-config secret openid-client-secret-foo
     apiVersion: v1
