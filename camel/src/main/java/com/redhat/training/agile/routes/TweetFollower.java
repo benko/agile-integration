@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.redhat.training.agile.components.StdoutBean;
+import com.redhat.training.agile.model.Tweet;
 
 @Component
 public class TweetFollower extends RouteBuilder {
@@ -36,6 +37,7 @@ public class TweetFollower extends RouteBuilder {
 				"accessToken=" + accessToken + "&" +
 				"accessTokenSecret=" + accessSecret + "&" +
 				"user=" + account)
+			.convertBodyTo(Tweet.class)
 			.bean(printer)
 			.to("seda:translations");
 	}

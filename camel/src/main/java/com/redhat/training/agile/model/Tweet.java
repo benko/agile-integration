@@ -18,4 +18,8 @@ public class Tweet {
 	public void setLanguage(Locale language) {
 		this.language = language;
 	}
+	
+	public String toString() {
+		return("[" + language.getISO3Language() + "]: " + text);
+	}
 }
