@@ -20,6 +20,6 @@ public class Tweet {
 	}
 	
 	public String toString() {
-		return("[" + language.getISO3Language() + "]: " + text);
+		return("[" + language.getLanguage() + "]: " + text);
 	}
 }
