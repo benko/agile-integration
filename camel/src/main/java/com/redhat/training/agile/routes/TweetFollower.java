@@ -1,29 +1,36 @@
 package com.redhat.training.agile.routes;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.redhat.training.agile.components.StdoutBean;
 
 @Component
 public class TweetFollower extends RouteBuilder {
-	private String consumerKey = "<fill-in>";
-	private String consumerSecret = "<fill-in>";
+	@Value("${agile.camel.consumer.key}")
+	private String consumerKey;
+	@Value("${agile.camel.consumer.secret}")
+	private String consumerSecret;
 	
-	private String accessToken = "<fill-in>";
-	private String accessSecret = "<fill-in>";
+	@Value("${agile.camel.access.token}")
+	private String accessToken;
+	@Value("${agile.camel.access.secret}")
+	private String accessSecret;
 
-	private String account = "BBCSport";
-	private String followDestination = "timeline/user";
-	private String messageType = "polling&delay=30000";
+	@Value("${agile.camel.follow.account}")
+	private String account;
+	
+	@Value("${agile.camel.poll.interval}")
+	private int pollInterval;
 
 	@Override
 	public void configure() throws Exception {
 		StdoutBean printer =  new StdoutBean();
 
 		// Create a Twitter component here.
-		from("twitter://" + followDestination + "?" +
-				"type=" + messageType + "&" +
+		from("twitter://timeline/user?" +
+				"type=polling&delay=" + pollInterval + "&" +
 				"consumerKey=" + consumerKey + "&" +
 				"consumerSecret=" + consumerSecret + "&" +
 				"accessToken=" + accessToken + "&" +
