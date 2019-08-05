@@ -20,6 +20,9 @@ There are essentially three technologies we are showcasing:
 Each of the above lives in a separate subdirectory with accompanying source
 code and documentation in their respective locations.
 
+Additionally, there is a simple dummy PHP app that can be used to showcase
+OpenShift language detection, image building, and deployment capability.
+
 Copyright, Copying & License
 ----------------------------
 
