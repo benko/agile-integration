@@ -39,4 +39,52 @@ public class TweetFollower extends RouteBuilder {
 			.bean(printer)
 			.to("seda:translations");
 	}
+
+	public String getConsumerKey() {
+		return consumerKey;
+	}
+
+	public void setConsumerKey(String consumerKey) {
+		this.consumerKey = consumerKey;
+	}
+
+	public String getConsumerSecret() {
+		return consumerSecret;
+	}
+
+	public void setConsumerSecret(String consumerSecret) {
+		this.consumerSecret = consumerSecret;
+	}
+
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
+
+	public String getAccessSecret() {
+		return accessSecret;
+	}
+
+	public void setAccessSecret(String accessSecret) {
+		this.accessSecret = accessSecret;
+	}
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	public int getPollInterval() {
+		return pollInterval;
+	}
+
+	public void setPollInterval(int pollInterval) {
+		this.pollInterval = pollInterval;
+	}
 }
