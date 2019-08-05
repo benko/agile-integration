@@ -9,25 +9,27 @@ import com.redhat.training.agile.model.Tweet;
 
 @Component
 public class TweetFollower extends RouteBuilder {
+	// Twitter authentication data
 	@Value("${agile.camel.consumer.key}")
 	private String consumerKey;
 	@Value("${agile.camel.consumer.secret}")
-	private String consumerSecret;
-	
+	private String consumerSecret;	
 	@Value("${agile.camel.access.token}")
 	private String accessToken;
 	@Value("${agile.camel.access.secret}")
 	private String accessSecret;
 
+	// Timeline to follow
 	@Value("${agile.camel.follow.account}")
 	private String account;
-	
+
+	// Polling interval for new messages
 	@Value("${agile.camel.poll.interval}")
 	private int pollInterval;
 
 	@Override
 	public void configure() throws Exception {
-		StdoutBean printer =  new StdoutBean();
+		StdoutBean printout =  new StdoutBean();
 
 		// Create a Twitter component here.
 		from("twitter://timeline/user?" +
@@ -38,8 +40,8 @@ public class TweetFollower extends RouteBuilder {
 				"accessTokenSecret=" + accessSecret + "&" +
 				"user=" + account)
 			.convertBodyTo(Tweet.class)
-			.bean(printer)
-			.to("seda:translations");
+			.bean(printout)
+			.to("seda:tweets");
 	}
 
 	public String getConsumerKey() {
