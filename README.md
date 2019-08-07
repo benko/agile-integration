@@ -1,12 +1,12 @@
-Agile Integration Technology Overview Materials
-===============================================
+Agile Integration Technical Overview Materials
+==============================================
 
 The Purpose of this Repository
 ------------------------------
 
 The source code and other files in this repository are supposed to be used as
-companions to the Agile Integration Technology Overview recorded with Red Hat
-in August 2019.
+companions to the Agile Integration Technical Overview recorded with Red Hat in
+August 2019.
 
 Content and Structure
 ---------------------
