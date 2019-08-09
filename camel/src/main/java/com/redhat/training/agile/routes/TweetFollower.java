@@ -1,15 +1,15 @@
 package com.redhat.training.agile.routes;
 
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.redhat.training.agile.components.StdoutBean;
 import com.redhat.training.agile.model.Tweet;
 
 @Component
 public class TweetFollower extends RouteBuilder {
-	// Twitter authentication data
+	// twitter authentication data
 	@Value("${agile.camel.consumer.key}")
 	private String consumerKey;
 	@Value("${agile.camel.consumer.secret}")
@@ -19,76 +19,31 @@ public class TweetFollower extends RouteBuilder {
 	@Value("${agile.camel.access.secret}")
 	private String accessSecret;
 
-	// Timeline to follow
+	// timeline to follow
 	@Value("${agile.camel.follow.account}")
 	private String account;
 
-	// Polling interval for new messages
+	// polling interval for new messages
 	@Value("${agile.camel.poll.interval}")
 	private int pollInterval;
 
 	@Override
 	public void configure() throws Exception {
-		StdoutBean printout =  new StdoutBean();
-
-		// Create a Twitter component here.
+		// follow a twitter feed using the twitter component
 		from("twitter://timeline/user?" +
-				"type=polling&delay=" + pollInterval + "&" +
+				"user=" + account + "&" +
+				"type=polling&" +
+				"delay=" + pollInterval + "&" +
 				"consumerKey=" + consumerKey + "&" +
 				"consumerSecret=" + consumerSecret + "&" +
 				"accessToken=" + accessToken + "&" +
-				"accessTokenSecret=" + accessSecret + "&" +
-				"user=" + account)
+				"accessTokenSecret=" + accessSecret)
+			// convert a Status to a simpler form
 			.convertBodyTo(Tweet.class)
-			.bean(printout)
-			.to("seda:tweets");
-	}
-
-	public String getConsumerKey() {
-		return consumerKey;
-	}
-
-	public void setConsumerKey(String consumerKey) {
-		this.consumerKey = consumerKey;
-	}
-
-	public String getConsumerSecret() {
-		return consumerSecret;
-	}
-
-	public void setConsumerSecret(String consumerSecret) {
-		this.consumerSecret = consumerSecret;
-	}
-
-	public String getAccessToken() {
-		return accessToken;
-	}
-
-	public void setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
-	}
-
-	public String getAccessSecret() {
-		return accessSecret;
-	}
-
-	public void setAccessSecret(String accessSecret) {
-		this.accessSecret = accessSecret;
-	}
-
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
-	}
-
-	public int getPollInterval() {
-		return pollInterval;
-	}
-
-	public void setPollInterval(int pollInterval) {
-		this.pollInterval = pollInterval;
+			// debug: uses toString() method of Tweet.class
+			.log(LoggingLevel.DEBUG, this.getClass().getName(), "TWEET RECEIVED: ${body}")
+			// regardless of the language, just forward the message
+			// to the translation topic - we'll take care of it there
+			.to("jms:topic:translate");
 	}
 }
