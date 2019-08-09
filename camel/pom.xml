@@ -51,7 +51,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
-    <!-- camel -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-activemq</artifactId>
+    </dependency>
+    <!-- camel-springboot-integration -->
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-spring-boot-starter</artifactId>
@@ -69,8 +73,29 @@
       <artifactId>camel-jackson-starter</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-pool</artifactId>
+    </dependency>
+    <!--  camel -->
+    <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-twitter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jms</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-ognl</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jackson</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jsonpath</artifactId>
     </dependency>
     <!-- Test -->
     <dependency>
