@@ -1,10 +1,14 @@
 package com.redhat.training.agile.model;
 
+import java.io.Serializable;
 import java.util.Locale;
 
-public class Tweet {
+public class Tweet implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private String text;
-	private Locale language;
+	private String language;
+	private String previousLanguage;
 
 	public String getText() {
 		return text;
@@ -12,14 +16,24 @@ public class Tweet {
 	public void setText(String text) {
 		this.text = text;
 	}
-	public Locale getLanguage() {
-		return language;
+	public String getLanguage() {
+		return this.language;
 	}
-	public void setLanguage(Locale language) {
-		this.language = language;
+	public void setLanguage(String language) {
+		this.language = Locale.forLanguageTag(language).getLanguage();
 	}
-	
+	public String getPreviousLanguage() {
+		return previousLanguage;
+	}
+	public void setPreviousLanguage(String previousLanguage) {
+		this.previousLanguage = Locale.forLanguageTag(previousLanguage).getLanguage();
+	}
+	// easy string conversion
 	public String toString() {
-		return("[" + language.getLanguage() + "]: " + text);
+		return("[" + 
+				((this.previousLanguage != null && this.previousLanguage != "") ?
+						this.previousLanguage + " -> " :
+						"") +
+				this.language + "]: " + this.text);
 	}
 }
