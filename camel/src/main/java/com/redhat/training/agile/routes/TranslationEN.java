@@ -12,24 +12,24 @@ import com.redhat.training.agile.model.TranslationResponse;
 import com.redhat.training.agile.model.Tweet;
 
 @Component
-public class TranslationES extends RouteBuilder {
+public class TranslationEN extends RouteBuilder {
 
 	@Value("${agile.camel.translate.key}")
 	private String translationKey;
 
 	@Override
 	public void configure() throws Exception {
-		// do spanish translation
+		// do english translation
 		from("jms:topic:translate")
 		// stream cache makes it possible for us to read the
 		// http response multiple times (for example, log it)
 		.streamCaching()
 		.choice()
-			.when(simple("${body.language} != 'es'"))
+			.when(simple("${body.language} != 'en'"))
 				// reassign the original language and set the target
 				// mind: transform=false is needed to not set the "out" message
 				.to("language:ognl:request.body.previousLanguage = request.body.language?transform=false")
-				.to("language:ognl:request.body.language = 'es'?transform=false")
+				.to("language:ognl:request.body.language = 'en'?transform=false")
 				// remember what the source and the target were
 				// (used in converting back to Tweet below)
 				.setHeader("X-Translation-Source", simple("${body.previousLanguage}"))
@@ -58,6 +58,6 @@ public class TranslationES extends RouteBuilder {
 			.otherwise()
 				.log(LoggingLevel.INFO, this.getClass().getName(), "Nothing to do - source language == target language.")
 			.end()
-		.to("jms:tweets.es");
+		.to("jms:tweets.en");
 	}
 }
