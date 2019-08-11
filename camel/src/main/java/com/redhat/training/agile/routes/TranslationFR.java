@@ -13,23 +13,24 @@ import com.redhat.training.agile.model.Tweet;
 
 @Component
 public class TranslationFR extends RouteBuilder {
-	// authentication data for systran
+	private static final String lang = "fr";
+
 	@Value("${agile.camel.translate.key}")
 	private String translationKey;
 
 	@Override
 	public void configure() throws Exception {
-		// do french translation
+		// read original messages
 		from("jms:topic:translate")
 		// stream cache makes it possible for us to read the
 		// http response multiple times (for example, log it)
 		.streamCaching()
 		.choice()
-			.when(simple("${body.language} != 'fr'"))
+			.when(simple("${body.language} != '" + lang + "'"))
 				// reassign the original language and set the target
 				// mind: transform=false is needed to not set the "out" message
 				.to("language:ognl:request.body.previousLanguage = request.body.language?transform=false")
-				.to("language:ognl:request.body.language = 'fr'?transform=false")
+				.to("language:ognl:request.body.language = '" + lang + "'?transform=false")
 				// remember what the source and the target were
 				// (used in converting back to Tweet below)
 				.setHeader("X-Translation-Source", simple("${body.previousLanguage}"))
@@ -58,6 +59,6 @@ public class TranslationFR extends RouteBuilder {
 			.otherwise()
 				.log(LoggingLevel.INFO, this.getClass().getName(), "Nothing to do - source language == target language.")
 			.end()
-		.to("jms:tweets.fr");
+		.to("jms:tweets." + lang);
 	}
 }
