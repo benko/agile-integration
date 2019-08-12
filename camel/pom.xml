@@ -11,9 +11,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<fuse.bom.version>7.3.1.fuse-731003-redhat-00003</fuse.bom.version>
-		<!-- version of Arquillian -->
-		<arquillian.cube.version>1.17.1</arquillian.cube.version>
-		<arquillian.version>1.4.0.Final</arquillian.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -23,13 +20,6 @@
 				<version>${fuse.bom.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.arquillian.cube</groupId>
-				<artifactId>arquillian-cube-bom</artifactId>
-				<version>${arquillian.cube.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -41,20 +31,6 @@
 			<version>1.0.0</version>
 		</dependency>
 		<!-- spring-boot -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-tomcat</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-undertow</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -71,10 +47,6 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-http-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-servlet-starter</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -116,28 +88,6 @@
 			<artifactId>camel-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.arquillian.cube</groupId>
-			<artifactId>arquillian-cube-requirement</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.arquillian.cube</groupId>
-			<artifactId>arquillian-cube-openshift</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.httpcomponents</groupId>
-					<artifactId>httpclient-osgi</artifactId>
-				</exclusion>
-			</exclusions>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.arquillian.junit</groupId>
-			<artifactId>arquillian-junit-standalone</artifactId>
-			<version>${arquillian.version}</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -149,12 +99,6 @@
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.0</version>
-				<inherited>true</inherited>
 			</plugin>
 			<plugin>
 				<groupId>org.jboss.redhat-fuse</groupId>
