@@ -3,6 +3,9 @@ package com.redhat.training.agile.model;
 import java.io.Serializable;
 import java.util.Locale;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Tweet implements Serializable {
 	private static final long serialVersionUID = 1L;
 
