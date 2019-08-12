@@ -1,10 +1,10 @@
-Camel Routing Showcases
-=======================
+Camel Routing Showcase
+======================
 
 Overview
 --------
 
-The Camel routing showcases demonstrate how Camel can be used to integrate
+The Camel routing showcase demonstrates how Camel can be used to integrate
 Twitter, translation services, and ultimately, leverage AMQ asynchronous
 messaging to integrate with other applications outside of the chosen runtime
 environment.
@@ -24,8 +24,8 @@ Running Locally as a SpringBoot App
 
 Build the application using the ``package`` goal and execute the resulting JAR:
 
-    $ mvn clean package -DskipTests
-    $ java -jar target/agile-camel-1.0.0.jar
+    $ mvn clean package
+    $ java -jar ./target/agile-camel-1.0.0.jar
 
 See sections below for more configuration information.
 
