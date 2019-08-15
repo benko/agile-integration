@@ -81,9 +81,9 @@
 				<message-counter-history-day-limit>10</message-counter-history-day-limit>
 				<address-full-policy>PAGE</address-full-policy>
 				<auto-create-queues>true</auto-create-queues>
-				<auto-create-addresses>false</auto-create-addresses>
-				<auto-create-jms-queues>false</auto-create-jms-queues>
-				<auto-create-jms-topics>false</auto-create-jms-topics>
+				<auto-create-addresses>true</auto-create-addresses>
+				<auto-create-jms-queues>true</auto-create-jms-queues>
+				<auto-create-jms-topics>true</auto-create-jms-topics>
 			</address-setting>
 		</address-settings>
 
@@ -105,19 +105,52 @@
 			</address>
 			<address name="tweets.en">
 				<anycast>
-					<queue name="tweets.en" non-destructive="true" />
+					<queue name="tweets.en" />
 				</anycast>
 			</address>
 			<address name="tweets.es">
 				<anycast>
-					<queue name="tweets.es" non-destructive="true" />
+					<queue name="tweets.es" />
 				</anycast>
 			</address>
 			<address name="tweets.fr">
 				<anycast>
-					<queue name="tweets.fr" non-destructive="true" />
+					<queue name="tweets.fr" />
+				</anycast>
+			</address>
+			<address name="jms.queue.tweets.en">
+				<anycast>
+					<queue name="jms.queue.tweets.en" non-destructive="true" />
+				</anycast>
+			</address>
+			<address name="jms.queue.tweets.es">
+				<anycast>
+					<queue name="jms.queue.tweets.es" non-destructive="true" />
+				</anycast>
+			</address>
+			<address name="jms.queue.tweets.fr">
+				<anycast>
+					<queue name="jms.queue.tweets.fr" non-destructive="true" />
 				</anycast>
 			</address>
 		</addresses>
+
+		<diverts>
+			<divert name="english-divert">
+				<address>tweets.en</address>
+				<forwarding-address>jms.queue.tweets.en</forwarding-address>
+				<exclusive>true</exclusive>
+			</divert>
+			<divert name="spanish-divert">
+				<address>tweets.es</address>
+				<forwarding-address>jms.queue.tweets.es</forwarding-address>
+				<exclusive>true</exclusive>
+			</divert>
+			<divert name="french-divert">
+				<address>tweets.fr</address>
+				<forwarding-address>jms.queue.tweets.fr</forwarding-address>
+				<exclusive>true</exclusive>
+			</divert>
+		</diverts>
 	</core>
 </configuration>
