@@ -30,7 +30,7 @@ public class TweetFollower extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		// follow a twitter feed using the twitter component
-		from("twitter://timeline/user?" +
+		from("twitter-timeline://user?" +
 				"user=" + account + "&" +
 				"type=polling&" +
 				"delay=" + pollInterval + "&" +
