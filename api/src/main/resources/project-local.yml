@@ -1,0 +1,33 @@
+thorntail:
+  network:
+    socket-binding-groups:
+      standard-sockets:
+        outbound-socket-bindings:
+          remote-broker:
+            remote-host: localhost
+            remote-port: 61616
+
+  messaging-activemq:
+    external-jms-queues:
+      tweets.en:
+        entries:
+          - java:/jms/queue/tweets.en
+      tweets.es:
+        entries:
+          - java:/jms/queue/tweets.es
+      tweets.fr:
+        entries:
+          - java:/jms/queue/tweets.fr
+
+    servers:
+      default:
+        remote-connectors:
+          remote-broker:
+            socket-binding: remote-broker
+
+        pooled-connection-factories:
+          remote-broker:
+            connectors:
+              - remote-broker
+            entries:
+              - java:/jms/RemoteBrokerCF
