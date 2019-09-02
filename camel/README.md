@@ -19,6 +19,19 @@ You can run this application in the following modes:
 
 ***IMPORTANT***: This application requires Java 8 JDK or later and Maven 3.3.x or later.
 
+External Dependencies
+---------------------
+
+This application depends on a number of external resources to do its job:
+
+ - a configured Twitter application account (and credentials)
+ - an active Systran application account (and credentials)
+ - a running JMS broker for both internal communication (forwarding tweets
+   to translation routes) and handoff to external applications (such as the
+   REST query API)
+
+See below for further configuration information.
+
 Running Locally as a SpringBoot App
 -----------------------------------
 
@@ -38,3 +51,7 @@ Configuring Application Parameters
 ----------------------------------
 
 TBD.
+
+References
+----------
+
