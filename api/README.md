@@ -18,6 +18,12 @@ You can run this application in the following modes:
 
 ***IMPORTANT***: This application requires Java 8 JDK or later and Maven 3.3.x or later.
 
+External Dependencies
+---------------------
+
+The application requires a running JMS broker (endpoints configured in the
+project staging file) with a couple of destinations to read the tweets from. 
+
 Running Locally as a Thorntail App
 ----------------------------------
 
@@ -37,3 +43,7 @@ Configuring Application Parameters
 ----------------------------------
 
 TBD.
+
+References
+----------
+
