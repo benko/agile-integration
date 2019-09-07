@@ -20,8 +20,15 @@ import javax.jms.Session;
 import com.redhat.training.agile.api.tweet.TweetBuffer;
 import com.redhat.training.agile.model.Tweet;
 
+/*
+ * This JMS client class primarily serves as a showcase how nothing actually
+ * works the way it should. :) There are remnants of several different types
+ * of attempts to get last-image messages from the below destinations, alas,
+ * none of them work for fetching the latest available message.  
+ */
 @Singleton
 @ApplicationScoped
+@Deprecated
 public class Client {
 	@Inject
 	TweetBuffer tb;
@@ -78,7 +85,7 @@ public class Client {
 		try {
 			c = cf.createConnection();
 			
-			// Apparently this blows up the consumer.
+			// Apparently this blows up the consumer as it's illegal.
 			//c.setClientID("ManualPull");
 
 			s = c.createSession(Session.AUTO_ACKNOWLEDGE);
