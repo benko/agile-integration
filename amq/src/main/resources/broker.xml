@@ -39,21 +39,7 @@
 			</acceptor>
 		</acceptors>
 
-		<security-settings>
-			<security-setting match="#">
-				<permission type="createNonDurableQueue" roles="amq" />
-				<permission type="deleteNonDurableQueue" roles="amq" />
-				<permission type="createDurableQueue" roles="amq" />
-				<permission type="deleteDurableQueue" roles="amq" />
-				<permission type="createAddress" roles="amq" />
-				<permission type="deleteAddress" roles="amq" />
-				<permission type="consume" roles="amq" />
-				<permission type="browse" roles="amq" />
-				<permission type="send" roles="amq" />
-				<!-- we need this otherwise ./artemis data imp wouldn't work -->
-				<permission type="manage" roles="amq" />
-			</security-setting>
-		</security-settings>
+		<security-enabled>false</security-enabled>
 
 		<address-settings>
 			<!-- if you define auto-create on certain queues, management has to be 
@@ -102,6 +88,9 @@
 				<anycast>
 					<queue name="exampleQueue" />
 				</anycast>
+			</address>
+			<address name="translate">
+				<multicast/>
 			</address>
 			<address name="tweets.en">
 				<anycast>
