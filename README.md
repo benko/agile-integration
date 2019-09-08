@@ -13,12 +13,16 @@ Content and Structure
 
 There are essentially three technologies we are showcasing:
 
- - Red Hat Fuse (with Apache Camel)
  - Red Hat AMQ
- - Red Hat 3scale
+ - Red Hat Fuse (with Apache Camel)
+ - Red Hat Thorntail (with a simple REST API provider)
 
 Each of the above lives in a separate subdirectory with accompanying source
 code and documentation in their respective locations.
+
+Due to the data model sharing between the Fuse and Thorntail projects, an
+additional project was created, called ``model``, which basically only contains
+a couple of classes used by both projects.
 
 Additionally, there is a simple dummy PHP app that can be used to showcase
 OpenShift language detection, image building, and deployment capability.
