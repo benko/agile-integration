@@ -4,8 +4,8 @@ thorntail:
       standard-sockets:
         outbound-socket-bindings:
           remote-broker:
-            remote-host: localhost
-            remote-port: 61616
+            remote-host: ${env.AMQ_BROKER_HOSTNAME:localhost}
+            remote-port: ${env.AMQ_BROKER_PORT:61616}
 
   messaging-activemq:
     external-jms-queues:
