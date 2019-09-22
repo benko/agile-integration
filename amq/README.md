@@ -16,6 +16,9 @@ Deployment Options
 You can only run this application locally, by deploying and starting an
 AMQ broker first.
 
+See the top-level documentation for more on how to deploy an AMQ broker in
+OpenShift.
+
 External Dependencies
 ---------------------
 
