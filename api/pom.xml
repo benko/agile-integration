@@ -14,7 +14,7 @@
 		<version.thorntail>2.4.0.Final</version.thorntail>
 		<version.restassured>3.0.7</version.restassured>
 		<version.assertj>3.8.0</version.assertj>
-		<version.resteasy>3.0.24.Final</version.resteasy>
+		<version.resteasy>4.5.6.Final-redhat-00004</version.resteasy>
 		<version.awaitility>3.1.0</version.awaitility>
 	</properties>
 	<dependencyManagement>
